@@ -38,10 +38,14 @@ public class Distribusi {
 	@FindBy(xpath = "//*[@id=\"btnSave\"]")
 	private WebElement btnSaveDistribusi;
 	
+	public void gotoDistribusi() {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		btnDistribusi.click();
+	}
+	
 	public void Distribusi(String search) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		btnDistribusi.click();
 		btnNew.click();
 		btnMS.click();
 		txtSearchingMS.sendKeys(search);

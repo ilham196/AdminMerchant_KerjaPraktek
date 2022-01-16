@@ -6,10 +6,17 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.kerjapraktek.merchant.config.AutomationFrameworkConfiguration;
 import com.kerjapraktek.merchant.driver.DriverSingleton;
+import com.kerjapraktek.merchant.page.CompletedData;
+import com.kerjapraktek.merchant.page.DeliverytoMD;
+import com.kerjapraktek.merchant.page.Distribusi;
 import com.kerjapraktek.merchant.page.LoginPage;
+import com.kerjapraktek.merchant.page.MonitoringMD;
+import com.kerjapraktek.merchant.page.ReceivedQR;
+import com.kerjapraktek.merchant.page.SendQR;
 import com.kerjapraktek.merchant.page.UploadDataEDC;
 import com.kerjapraktek.merchant.page.UploadDataQRIS;
 import com.kerjapraktek.merchant.page.UploadDataQRISReturn;
+import com.kerjapraktek.merchant.page.Validasi;
 import com.kerjapraktek.merchant.utils.ConfigurationProperties;
 import com.kerjapraktek.merchant.utils.Constants;
 import com.kerjapraktek.merchant.utils.TestCases;
@@ -33,6 +40,13 @@ public class StepDefinition {
 	private UploadDataQRIS uploadData;
 	private UploadDataQRISReturn uploadDataReturn;
 	private UploadDataEDC uploadDataEDC;
+	private SendQR sendQR;
+	private ReceivedQR receivedQR;
+	private DeliverytoMD deliverytoMD;
+	private Distribusi distribusiPage;
+	private Validasi validasiPage;
+	private CompletedData completedData;
+	private MonitoringMD monitoringMD;
 	ExtentTest extentTest;
 	static ExtentReports report = new ExtentReports("src/main/resources/TestReport.html");
 	
@@ -46,6 +60,13 @@ public class StepDefinition {
 		uploadData = new UploadDataQRIS();
 		uploadDataReturn = new UploadDataQRISReturn();
 		uploadDataEDC = new UploadDataEDC();
+		sendQR = new SendQR();
+		receivedQR = new ReceivedQR();
+		deliverytoMD = new DeliverytoMD();
+		distribusiPage = new Distribusi();
+		validasiPage = new Validasi();
+		completedData = new CompletedData();
+		monitoringMD = new MonitoringMD();
 		TestCases[] tests = TestCases.values();
 		extentTest = report.startTest(tests[Utils.testCount].getTestName());
 		Utils.testCount++;
@@ -119,8 +140,120 @@ public class StepDefinition {
 		extentTest.log(LogStatus.PASS, "User go to Input New Customer EDC");
 	}
 	
+	@Then("^User can Input New Customer EDC")
+	public void user_can_input_new_customer_EDC() {
+		extentTest.log(LogStatus.PASS, "User can Input New Customer EDC");
+	}
 	
+	//MODUL SEND QR
+	@Given("^User go to Send QR page")
+	public void user_go_to_send_QR_page() {
+		sendQR.gotoSendQR();
+		extentTest.log(LogStatus.PASS, "User go to Send QR page");
+	}
 	
+	@When("^User can action data")
+	public void user_can_action_data() {
+		sendQR.SendQR(configurationProperties.getSearchQR());
+		extentTest.log(LogStatus.PASS, "User can action data");
+	}
+	
+	@Then("^User can Received QR data")
+	public void user_can_received_QR_data() {
+		extentTest.log(LogStatus.PASS, "User can Received QR data");
+	}
+	
+	//Received QR
+	@Given("^User go to Received QR page")
+	public void user_go_to_received_QR_page() {
+		receivedQR.gotoReceivedQR();
+		extentTest.log(LogStatus.PASS, "User go to Received QR page");
+	}
+	
+	@When("^User can action data Received")
+	public void user_can_action_data_received() {
+		receivedQR.ReceivedQR(configurationProperties.getSearchQR());
+		extentTest.log(LogStatus.PASS, "User can action data Received");
+	}
+	
+	@Then("^User can Delivery to MD")
+	public void user_can_delivery_to_MD() {
+		extentTest.log(LogStatus.PASS, "User can Delivery to MD");
+	}
+	
+	//MODUL Delivery to MD
+	@Given("^User go to Delivery to MD page")
+	public void user_go_to_delivery_to_MD_page() {
+		deliverytoMD.gotoDeliveryMD();
+		extentTest.log(LogStatus.PASS, "User go to Delivery to MD page");
+	}
+	
+	@When("^User can action data Delivery to MD")
+	public void user_can_action_data_delivery_to_MD() {
+		deliverytoMD.DeliverytoMD(configurationProperties.getSearchQR());
+		extentTest.log(LogStatus.PASS, "User can action data Delivery to MD");
+	}
+	
+	@Then("^User can Delivery to MD data")
+	public void user_can_delivery_to_MD_data() {
+		extentTest.log(LogStatus.PASS, "User can Delivery to MD data");
+	}
+	
+	//MODUL Distribusi
+	@Given("^User go to Distribusi page")
+	public void user_go_to_distribusi_page() {
+		distribusiPage.gotoDistribusi();
+		extentTest.log(LogStatus.PASS, "User go to Distribusi page");
+	}
+	
+	@When("^User can checkbox the merchant")
+	public void user_can_checkbox_the_merchant() {
+		distribusiPage.Distribusi(configurationProperties.getSearchMS());
+		extentTest.log(LogStatus.PASS, "User can checkbox the merchant");
+	}
+	
+	@Then("^User can Distribusi the merchant")
+	public void user_can_distribusi_the_merchant() {
+		extentTest.log(LogStatus.PASS, "User can Distribusi the merchant");
+	}
+	
+	//MODUL Validasi
+	@When("^User go to Validasi page and Action button")
+	public void user_go_to_validasi_page_and_action_button() {
+		validasiPage.gotoValidasi();
+		extentTest.log(LogStatus.PASS, "User go to Validasi page and Action button");
+	}
+	
+	@Then("^User can approve data")
+	public void user_can_approve_data() {
+		extentTest.log(LogStatus.PASS, "User can approve data");
+	}
+	
+	//MODUL Completed Data
+	@When("^User can go Completed Data page and Action button")
+	public void user_can_go_completed_data_page_and_action_button() {
+		completedData.gotoCompletedData();
+		extentTest.log(LogStatus.PASS, "User can go Completed Data page and Action button");
+	}
+	
+	@Then("^User can print and edit status")
+	public void user_can_print_and_edit_status() {
+		extentTest.log(LogStatus.PASS, "User can print and edit status");
+	}
+	
+	//MODUL Monitoring MD
+	@When("^User can go Monitoring MD page and Action button")
+	public void user_can_go_monitoring_MD_page_and_action_button() {
+		monitoringMD.MonitoringMD();
+		extentTest.log(LogStatus.PASS, "User can go Monitoring MD page and Action button");
+	}
+	
+	@Then("^User can see Action button data")
+	public void user_can_see_action_button_data() {
+		extentTest.log(LogStatus.PASS, "User can see Action button data");
+	}
+	
+	//MODUL Worklist
 	
 	@After
 	public void closeObject() {

@@ -9,7 +9,10 @@ public enum TestCases {
 	T5("Testing Send QR page"),
 	T6("Testing Received QR page"),
 	T7("Testing Delivery to MD page"),
-	T8("Testing Distribusi page");
+	T8("Testing Distribusi page"),
+	T9("Testing Validasi page"),
+	T10("Testing Completed Data page"),
+	T11("Testing Monitoring MD page");
 	
 	private String testName;
 	
